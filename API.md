@@ -17,20 +17,20 @@ Base URL: `https://api.calendly.com`
 
 ## Authentication
 
-`.env` contains `CALENDLY_TOKEN` and is ignored by Git. Load it without echoing it:
+`secretspec.toml` declares `CALENDLY_TOKEN`; its value lives in the `Developer-Credentials` 1Password vault. SecretSpec injects it only into the request process:
 
 ```sh
-set -a
-source .env
-set +a
-
-curl --fail-with-body --silent --show-error --max-time 30 \
-  -H "Authorization: Bearer $CALENDLY_TOKEN" \
-  -H 'Accept: application/json' \
-  https://api.calendly.com/users/me | jq
+secretspec run --reason "Read the current Calendly user" -- sh -c '
+  curl --fail-with-body --silent --show-error --max-time 30 \
+    -H "Authorization: Bearer $CALENDLY_TOKEN" \
+    -H "Accept: application/json" \
+    https://api.calendly.com/users/me | jq
+'
 ```
 
-Never use `set -x`, put the token directly in a command, or paste it into chat. If the token appears in a prompt or log, revoke it at [API & Webhooks](https://calendly.com/integrations/api_webhooks), replace `.env`, and assume the old value is compromised.
+Change the reason to match the request. Never use `set -x`, retrieve the token with `secretspec get`, put it directly in a command, or paste it into chat. If the token appears in a prompt or log, revoke it at [API & Webhooks](https://calendly.com/integrations/api_webhooks), replace the 1Password item, and assume the old value is compromised.
+
+Install the prerequisites with `brew install --cask 1password 1password-cli` and `cargo install secretspec --locked`, then enable **1Password → Settings → Developer → Integrate with 1Password CLI**. To roll back, copy `.env.example` to `.env`, add the token, and use the former `source .env` flow; `.env` remains gitignored.
 
 For a write, copy the exact body from the current API reference. Read the resource first, send the smallest supported `PATCH`, then read it again. Do not infer a payload from an older example.
 
@@ -53,7 +53,7 @@ API access is still bounded by Calendly's current endpoint behavior, subscriptio
 
 ## This token's permissions
 
-The PAT stored in `.env` was decoded locally and verified with read-only calls to `/users/me` and `/event_types` on 2026-07-15. It contains every scope in Calendly's current public PAT catalog:
+The PAT stored in 1Password was decoded locally and verified with read-only calls to `/users/me` and `/event_types` on 2026-07-15. It contains every scope in Calendly's current public PAT catalog:
 
 - Scheduling: `availability:read`, `availability:write`, `event_types:read`, `event_types:write`, `locations:read`, `routing_forms:read`, `shares:write`, `scheduled_events:read`, `scheduled_events:write`, `scheduling_links:write`.
 - Account: `groups:read`, `organizations:read`, `organizations:write`, `users:read`.
@@ -61,7 +61,7 @@ The PAT stored in `.env` was decoded locally and verified with read-only calls t
 - Webhooks: `webhooks:read`, `webhooks:write`.
 - Security and operations: `activity_log:read`, `data_compliance:write`, `outgoing_communications:read`.
 
-The token can therefore perform every operation currently authorized by a public PAT scope, including destructive contact, membership, webhook, cancellation, and compliance operations. Possession of `.env` is effectively account administration. Prefer a narrower replacement token once the recurring workflows are known.
+The token can therefore perform every operation currently authorized by a public PAT scope, including destructive contact, membership, webhook, cancellation, and compliance operations. Access to its 1Password item is effectively account administration. Prefer a narrower replacement token once the recurring workflows are known.
 
 ## Request discipline
 

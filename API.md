@@ -1,8 +1,3 @@
----
-human_edit_tracking:
-  enabled: true
-  history: []
----
 # Calendly API
 
 Checked 2026-07-15 against Calendly API v2 and the live account.

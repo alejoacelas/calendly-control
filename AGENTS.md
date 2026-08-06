@@ -1,4 +1,8 @@
-<!--ai-->
+---
+human_edit_tracking:
+  enabled: true
+  history: []
+---
 # Agent instructions
 
 - Read [API.md](API.md), then open the exact endpoint in Calendly's current API reference before making a request.
@@ -8,4 +12,3 @@
 - Retry reads on `429` or `5xx`. Do not automatically retry writes because the first request may have succeeded.
 - Do not delete or cancel anything unless the user explicitly asks. Patch event types rather than replacing them.
 - After a write, read the resource back and verify the public scheduling link. For availability or conferencing changes, make a test booking with an address the user controls.
-<!--/ai-->

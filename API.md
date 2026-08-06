@@ -1,4 +1,8 @@
-<!--ai-->
+---
+human_edit_tracking:
+  enabled: true
+  history: []
+---
 # Calendly API
 
 Checked 2026-07-15 against Calendly API v2 and the live account.
@@ -71,4 +75,3 @@ The token can therefore perform every operation currently authorized by a public
 4. Treat `401` as an expired or revoked token, `403` as a scope/role/plan mismatch, `404` as a stale URI, `429` as a retry-after signal, and `5xx` as transient.
 5. Retry `GET` requests with bounded exponential backoff. Never automatically retry `POST`, `PUT`, `PATCH`, or `DELETE`.
 6. Make one logical change, read it back, and test its public booking flow before starting another.
-<!--/ai-->

@@ -1,6 +1,3 @@
----
-human_edit_tracking:
-  enabled: true
-  history: []
----
+<!--ai-->
 See @AGENTS.md
+<!--/ai-->

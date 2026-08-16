@@ -1,8 +1,3 @@
----
-human_edit_tracking:
-  enabled: true
-  history: []
----
 # Agent instructions
 
 - Read [API.md](API.md), then open the exact endpoint in Calendly's current API reference before making a request.

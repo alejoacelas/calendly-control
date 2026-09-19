@@ -45,7 +45,7 @@ agent_context:
 # Agent instructions
 
 - Read [API.md](API.md), then open the exact endpoint in Calendly's current API reference before making a request.
-- Run API commands through SecretSpec, which loads `CALENDLY_TOKEN` from the `Developer-Credentials` 1Password vault. State the specific reason with `--reason`. Never retrieve, print, or put the token in a command argument, prompt, log, commit, or response.
+- Retrieve `CALENDLY_TOKEN` on demand with `op` into the project’s `.env`; first verify the personal 1Password account, vault, item and field. Ensure `.env` is Git-ignored, untracked and mode 600 before writing it. Reuse it for requests without printing the value or putting it in command arguments. See [README.md](README.md) for the credential-location gap.
 - Read the current resource first. Change only requested fields and preserve nested availability rules, locations, and booking questions.
 - Use direct HTTPS requests to `https://api.calendly.com`; no local wrapper is needed.
 - Retry reads on `429` or `5xx`. Do not automatically retry writes because the first request may have succeeded.

@@ -16,20 +16,15 @@ Base URL: `https://api.calendly.com`
 
 ## Authentication
 
-`secretspec.toml` declares `CALENDLY_TOKEN`; its value lives in the `Developer-Credentials` 1Password vault. SecretSpec injects it only into the request process:
+Use `CALENDLY_TOKEN` from the project's ignored, owner-only `.env`. Retrieve it with
+`op` only after confirming the explicit personal account, vault, item and field;
+[README.md](README.md#credential) records the unresolved credential location.
+Check `.env` is ignored and untracked and use mode 600 before writing the token.
 
-```sh
-secretspec run --reason "Read the current Calendly user" -- sh -c '
-  curl --fail-with-body --silent --show-error --max-time 30 \
-    -H "Authorization: Bearer $CALENDLY_TOKEN" \
-    -H "Accept: application/json" \
-    https://api.calendly.com/users/me | jq
-'
-```
-
-Change the reason to match the request. Never use `set -x`, retrieve the token with `secretspec get`, put it directly in a command, or paste it into chat. If the token appears in a prompt or log, revoke it at [API & Webhooks](https://calendly.com/integrations/api_webhooks), replace the 1Password item, and assume the old value is compromised.
-
-Install the prerequisites with `brew install --cask 1password 1password-cli` and `cargo install secretspec --locked`, then enable **1Password → Settings → Developer → Integrate with 1Password CLI**. To roll back, copy `.env.example` to `.env`, add the token, and use the former `source .env` flow; `.env` remains gitignored.
+Load the variable into the request process without printing it. Do not enable shell
+tracing or place the token in command-line arguments, logs or chat. Use an HTTP
+client that takes the authorization header from its process environment. SecretSpec
+is no longer required; `secretspec.toml` remains only as legacy configuration.
 
 For a write, copy the exact body from the current API reference. Read the resource first, send the smallest supported `PATCH`, then read it again. Do not infer a payload from an older example.
 

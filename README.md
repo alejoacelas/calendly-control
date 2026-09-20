@@ -15,5 +15,4 @@ before retrieving a key. Do not copy a work-account credential into this project
 
 Before creating `.env`, verify it is ignored and untracked, and set mode 600 before
 writing secret values. Reuse the local file for subsequent requests. Never commit
-or print its contents. `secretspec.toml` is a legacy configuration, not the current
-credential workflow.
+or print its contents.

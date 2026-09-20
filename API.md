@@ -23,8 +23,7 @@ Check `.env` is ignored and untracked and use mode 600 before writing the token.
 
 Load the variable into the request process without printing it. Do not enable shell
 tracing or place the token in command-line arguments, logs or chat. Use an HTTP
-client that takes the authorization header from its process environment. SecretSpec
-is no longer required; `secretspec.toml` remains only as legacy configuration.
+client that takes the authorization header from its process environment.
 
 For a write, copy the exact body from the current API reference. Read the resource first, send the smallest supported `PATCH`, then read it again. Do not infer a payload from an older example.
 

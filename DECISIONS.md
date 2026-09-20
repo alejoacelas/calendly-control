@@ -17,7 +17,7 @@
 
 ### Use direct API requests and verify the personal credential location
 
-The project is account-administration guidance, not a local wrapper. Current instructions use op and an ignored owner-only .env; the formerly named vault was absent and the item/field remain unverified. Do not borrow a work credential or treat legacy secretspec.toml as current setup. See [README.md](README.md).
+The project is account-administration guidance, not a local wrapper. Current instructions use op and an ignored owner-only .env; the formerly named vault was absent and the item/field remain unverified. Do not borrow a work credential. See [README.md](README.md).
 
 <a id="decision-2"></a>
 

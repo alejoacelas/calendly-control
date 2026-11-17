@@ -1,6 +1,7 @@
 # Agent instructions
 
 Tags: scheduling, api-tool
+
 - Read [API.md](API.md), then open the exact endpoint in Calendly's current API reference before making a request.
 - Retrieve `CALENDLY_TOKEN` on demand with `op` into the project’s `.env`; first verify the personal 1Password account, vault, item and field. Ensure `.env` is Git-ignored, untracked and mode 600 before writing it. Reuse it for requests without printing the value or putting it in command arguments. See [README.md](README.md) for the credential-location gap.
 - Read the current resource first. Change only requested fields and preserve nested availability rules, locations, and booking questions.
